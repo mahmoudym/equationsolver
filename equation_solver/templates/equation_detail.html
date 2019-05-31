@@ -2,21 +2,21 @@
 {% load static %}
 
 {% block page_content %}
-<h1>Name: {{ equation.name }}</h1>
+<h1 >Name: {{ equation.name }}</h1>
 
 <label>Description: {{equation.description }}</label>
 </br>
 </br>
 </br>
-<div style="text-indent: 40px" class="form-group">
-<form action="{% url 'solve' equation.pk %}" method="POST">
+<div class="form-group">
+<form style="margin-left: 40px" action="{% url 'solve' equation.pk %}" method="POST">
   {% csrf_token %}
   {% for variable in variables %}
-  <label>{{variable}}</label>
-  <input type="text" name="{{variable}}"/><br/>
+  <label style="indent: 40px">{{variable}}</label>
+  <input style="indent: 40px" type="text" name="{{variable}}"/><br/>
   {% endfor %}
-  <button class="btn btn-primary" type = "submit" value = "Post">solve</button>
+  <button  style="indent: 40px" class="btn btn-primary" type = "submit" value = "Post">solve</button>
 </form>
-<label>{{result}}</label>
+<label style="margin-left: 40px">{{result}}</label>
 </div>
 {% endblock %}
