@@ -12,10 +12,10 @@
 <form style="margin-left: 40px" action="{% url 'solve' equation.pk %}" method="POST">
   {% csrf_token %}
   {% for variable in variables %}
-  <label style="indent: 40px">{{variable}}</label>
-  <input style="indent: 40px" type="text" name="{{variable}}"/><br/>
+  <label >{{variable}}</label>
+  <input  type="text" name="{{variable}}"/><br/>
   {% endfor %}
-  <button  style="indent: 40px" class="btn btn-primary" type = "submit" value = "Post">solve</button>
+  <button  class="btn btn-primary" type = "submit" value = "Post">solve</button>
 </form>
 <label style="margin-left: 40px">{{result}}</label>
 </div>
