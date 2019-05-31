@@ -119,15 +119,15 @@ class NumericStringParser(object):
         return val
 
 def executeEq(equ, solv):
+    print(solv)
     solv = solv.split(",")
     for i in solv:
         var = i.split("=")
-        x = 0
-        for j in equ:
-            if(j == var[0].strip()):
-                break
-            x+=1
-        equ = equ[:x] + "(" + var[1].strip() + ")" + equ[x+1:]
+        print(var)
+        x= equ.find(var[0].strip())
+        equ = equ[:x] + "(" + var[1].strip() + ")" + equ[x+len(var[0].strip()):]
+
+    print(equ)
 
     nsp = NumericStringParser()
     result = nsp.eval(equ)
