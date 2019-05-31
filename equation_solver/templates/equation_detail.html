@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block page_content %}
+<h1>Name: {{ equation.name }}</h1>
+
+<label>Description: {{equation.description }}</label>
+</br>
+</br>
+</br>
+<div class="form-group">
+<form action="{% url 'solve' equation.pk %}" method="POST">
+  {% csrf_token %}
+  {% for variable in variables %}
+  <label>{{variable}}</label>
+  <input type="text" name="{{variable}}"/><br/>
+  {% endfor %}
+  <button class="btn btn-primary" type = "submit" value = "Post">solve</button>
+</form>
+<label>{{result}}</label>
+</div>
+{% endblock %}

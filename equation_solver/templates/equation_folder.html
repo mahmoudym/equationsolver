@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+<h1>Folders</h1>
+<div class="row">
+{% for folder in folders %}
+    <div class="col-md-2">
+        <div class="card mb-2">
+            <img class="card-img-top" src="{% static "img/folder.png" %}">
+            <div class="card-body">
+                <h5 class="card-title">{{ folder.name }}</h5>
+                <a href="{% url 'equation_index' folder.pk %}"
+                   class="btn btn-primary">
+                    Open
+                </a>
+                <a href="{% url 'deletefolder' folder.pk %}"
+                   class="btn btn-primary">
+                    Delete
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</br>
+</br>
+</br>
+<div class="form-group">
+<h4> Create Folder</h4>
+<form action="{% url 'createfolder' %}" method="POST">
+{% csrf_token %}
+Name : <input class="form-control"  type="text" name="name"/><br/>
+</div>
+<button class="btn btn-primary" type = "submit" value = "Post">create</button>
+</form>
+{% endblock %}
