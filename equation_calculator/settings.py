@@ -25,7 +25,7 @@ SECRET_KEY = '$@4-!np)+a=#=9)_2^r&t%empop9x8h83k+$^p%t72249-x9*q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['equationcalculator.herokuapp.com','localhost']
 
 
 # Application definition
