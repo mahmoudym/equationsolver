@@ -62,6 +62,7 @@ def createequation(request, pk):
     e.name = request.POST.get('name')
     e.equation = request.POST.get('equation')
     e.variables = request.POST.get('variables')
+    e.finalvars = request.POST.get('finalvars')
     e.description = request.POST.get('description')
     e.folder = pk
     e.save()
@@ -91,7 +92,7 @@ def solve(request, pk):
     if len(variables)>1:
         for i in variables[1:]:
             st += "," +  i + " = " + request.POST.get(i)
-    res = executeEq(x.equation,st)
+    res = executeEq(x.equation,st,x.finalvars)
     context = {
         'equation': x,
         'variables': x.variables.split(","),
