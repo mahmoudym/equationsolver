@@ -12,6 +12,7 @@
                 <h5 class="card-title">{{ equation.name }}</h5>
                 <label> Description: </label>
                 <p class="card-text">{{ equation.description }}</p>
+                <label> Equation: </label>
                 <p class="card-text">{{ equation.equation }}</p>
                 <a href="{% url 'equation_detail' equation.pk %}"
                    class="btn btn-primary">
