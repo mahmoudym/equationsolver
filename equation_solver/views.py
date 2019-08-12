@@ -4,6 +4,7 @@ from equation_solver.models import Equation_solver
 from equation_solver.models import Folder
 from equation_solver.equation import executeEq
 
+
 def welcome(request):
     return render(request,'welcome.html',{})
 
