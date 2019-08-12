@@ -36,7 +36,7 @@
 </br>
 <div class="form-group">
 <h4> Add Equation</h4>
-<form action="{% url 'createequation' folderpk %}" method="POST">
+<form style="margin-left: 40px" action="{% url 'createequation' folderpk %}" method="POST">
 {% csrf_token %}
 Name : <input class="form-control"  type="text" name="name"/><br/>
 Equation : <input class="form-control"  type="text" name="equation"/><br/>
