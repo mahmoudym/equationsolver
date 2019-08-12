@@ -29,9 +29,9 @@
 </br>
 </br>
 </br>
-<div style="margin-left: 40px" class="form-group">
+<div  class="form-group">
 <h4> Create Folder</h4>
-<form action="{% url 'createfolder' %}" method="POST">
+<form style="margin-left: 40px" action="{% url 'createfolder' %}" method="POST">
 {% csrf_token %}
 Name : <input class="form-control"  type="text" name="name"/><br/>
 </div>

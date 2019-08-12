@@ -14,8 +14,8 @@
 </br>
 </br>
 </br>
-<div class="form-group">
-<form style="margin-left: 40px" action="{% url 'solve' equation.pk %}" method="POST">
+<div style="margin-left: 40px" class="form-group">
+<form  action="{% url 'solve' equation.pk %}" method="POST">
   {% csrf_token %}
   {% for variable in variables %}
   <label >{{variable}}</label>
