@@ -10,14 +10,14 @@
 {% for folder in folders %}
     <div class="col-md-2">
         <div class="card mb-2">
-            <img class="card-img-top" src="https://raw.githubusercontent.com/openintents/filemanager/master/promotion/icons/ic_launcher_filemanager_512.png" %}">
+            <img width="50" height="200" class="card-img-top" src="https://raw.githubusercontent.com/openintents/filemanager/master/promotion/icons/ic_launcher_filemanager_512.png" %}">
             <div class="card-body">
                 <h5 class="card-title">{{ folder.name }}</h5>
-                <a href="{% url 'equation_index' folder.pk %}"
+                <a align="left" href="{% url 'equation_index' folder.pk %}"
                    class="btn btn-primary">
                     Open
                 </a>
-                <a href="{% url 'deletefolder' folder.pk %}"
+                <a align="right" href="{% url 'deletefolder' folder.pk %}"
                    class="btn btn-primary">
                     Delete
                 </a>
