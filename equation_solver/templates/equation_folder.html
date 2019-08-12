@@ -6,7 +6,7 @@
 {% load static %}
 {% block page_content %}
 <h1>Folders</h1>
-<div class="row">
+<div style="margin-left: 40px" class="row">
 {% for folder in folders %}
     <div class="col-md-2">
         <div class="card mb-2">
@@ -29,13 +29,13 @@
 </br>
 </br>
 </br>
-<div  class="form-group">
+<div style="margin-left: 40px" class="form-group">
 <h4> Create Folder</h4>
-<form style="margin-left: 40px" action="{% url 'createfolder' %}" method="POST">
+<form  action="{% url 'createfolder' %}" method="POST">
 {% csrf_token %}
 Name : <input class="form-control"  type="text" name="name"/><br/>
-</div>
 <button class="btn btn-primary" type = "submit" value = "Post">create</button>
 </form>
+</div>
 {% endblock %}
 </html>
