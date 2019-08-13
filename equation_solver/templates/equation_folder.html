@@ -6,22 +6,22 @@
 {% load static %}
 {% block page_content %}
 <h1>Folders</h1>
-<div  class="row">
+<div width="200" height="400" class="row">
 {% for folder in folders %}
     <div class="col-md-2">
         <div class="card mb-2">
-            <img width="50" height="200" class="card-img-top" src="https://raw.githubusercontent.com/openintents/filemanager/master/promotion/icons/ic_launcher_filemanager_512.png" %}">
+          <a  align="right" href="{% url 'deletefolder' folder.pk %}"
+             class="btn btn-primary">
+              <img width="40" height="40" src = "http://simpleicon.com/wp-content/uploads/trash.png">
+          </a>
+            <img  class="card-img-top" src="https://raw.githubusercontent.com/openintents/filemanager/master/promotion/icons/ic_launcher_filemanager_512.png" %}">
             <div class="card-body">
                 <h5 class="card-title">{{ folder.name }}</h5>
-                <a align="left" href="{% url 'equation_index' folder.pk %}"
-                   class="btn btn-primary">
-                    Open
-                </a>
-                <a align="right" href="{% url 'deletefolder' folder.pk %}"
-                   class="btn btn-primary">
-                    Delete
-                </a>
             </div>
+            <a href="{% url 'equation_index' folder.pk %}"
+               class="btn btn-primary">
+                Open
+            </a>
         </div>
     </div>
     {% endfor %}

@@ -6,11 +6,15 @@
 {% load static %}
 {% block page_content %}
 <h1>Equations</h1>
-<div class="row">
+<div width="50" height="200" class="row">
 {% for equation in equations %}
     <div class="col-md-2">
         <div class="card mb-2">
-            <img width="50" height="200" class="card-img-top" src="https://raw.githubusercontent.com/openintents/filemanager/master/promotion/icons/ic_launcher_filemanager_512.png" %}">
+          <a href="{% url 'deleteequation' equation.pk %}"
+             class="btn btn-primary">
+            <img width="40" height="40" src = "http://simpleicon.com/wp-content/uploads/trash.png">
+          </a>
+            <img  class="card-img-top" src="https://raw.githubusercontent.com/openintents/filemanager/master/promotion/icons/ic_launcher_filemanager_512.png" %}">
             <div class="card-body">
                 <label> Name: </label>
                 <h5 class="card-title">{{ equation.name }}</h5>
@@ -18,15 +22,11 @@
                 <p class="card-text">{{ equation.description }}</p>
                 <label> Equation: </label>
                 <p class="card-text">{{ equation.equation }}</p>
-                <a href="{% url 'equation_detail' equation.pk %}"
-                   class="btn btn-primary">
-                    Open
-                </a>
-                <a href="{% url 'deleteequation' equation.pk %}"
-                   class="btn btn-primary">
-                    Delete
-                </a>
             </div>
+            <a href="{% url 'equation_detail' equation.pk %}"
+               class="btn btn-primary">
+                Open
+            </a>
         </div>
     </div>
     {% endfor %}
