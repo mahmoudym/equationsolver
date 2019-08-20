@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC '-//WAPFORUM//DTD XHTML Mobile 1.0//EN'
+'http://www.wapforum.org/DTD/xhtml-mobile10.dtd'>
+  <html xmlns='http://www.w3.org/1999/xhtml'>
+{% extends "base.html" %}
+{% load static %}
+{% block page_content %}
+
+<form action="{% url 'edit_equation' pk %}" method="POST">
+{% csrf_token %}
+Name : <input class="form-control"  type="text" value="{{name}}" name="name"/><br/>
+Equation : <input class="form-control" value="{{equation}}" name="equation"/><br/>
+Variables : <input class="form-control" value="{{variables}}" type="text" name="variables"/><br/>
+Result Variables : <input class="form-control" value="{{finalvars}}" type="text" name="finalvars"/><br/>
+Description : <input class="form-control" value="{{description}}" type="text" name="description"/><br/>
+<input class="form-control" value="{{ref}}" type="hidden" name="ref"/><br/>
+
+<button class="btn btn-primary" type = "submit" value = "Post">submit</button>
+</form>
+
+
+{% endblock %}
+</html>
