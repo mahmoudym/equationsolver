@@ -19,11 +19,18 @@
   {% csrf_token %}
   {% for variable in variables %}
   <label >{{variable}}</label>
-  <input  type="text" value= {{data}} name="{{variable}}"/><br/>
+  <input id="id_username" type="text" name="{{variable}}"/><br/>
   {% endfor %}
   <button  class="btn btn-primary" type = "submit" value = "Post">solve</button>
 </form>
 <label style="margin-left: 40px">{{result}}</label>
+{% block javascript %}
+  <script>
+    $("#id_username").change(function () {
+      console.log( $(this).val() );
+    });
+  </script>
 </div>
+{% endblock %}
 {% endblock %}
 </html>
