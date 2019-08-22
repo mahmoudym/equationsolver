@@ -3,7 +3,7 @@ from django.shortcuts import render
 from equation_solver.models import Equation_solver
 from equation_solver.models import Folder
 from equation_solver.equation import executeEq
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 import json
 
 def welcome(request):
