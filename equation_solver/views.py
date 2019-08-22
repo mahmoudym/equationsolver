@@ -3,7 +3,8 @@ from django.shortcuts import render
 from equation_solver.models import Equation_solver
 from equation_solver.models import Folder
 from equation_solver.equation import executeEq
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse
+import json
 
 def welcome(request):
     return render(request,'welcome.html',{})
@@ -103,7 +104,7 @@ def solve(request, pk):
         'result': str(res),
         'data': data,
     }
-    return render(request, 'equation_detail.html',context)
+    return HttpResponse(json.dumps({'result': str(res)}), content_type="application/json")
 def editequation(request,pk):
     x = Equation_solver.objects.get(pk=pk)
     context = {

@@ -15,22 +15,31 @@
 </br>
 </br>
 <div style="margin-left: 40px" class="form-group">
-<form  action="{% url 'solve' equation.pk %}" method="POST">
+<form  id="solve"  method="POST">
   {% csrf_token %}
   {% for variable in variables %}
   <label >{{variable}}</label>
-  <input id="id_username" type="text" name="{{variable}}"/><br/>
+  <input id="vars" type="text" name="{{variable}}"/><br/>
   {% endfor %}
-  <button  class="btn btn-primary" type = "submit" value = "Post">solve</button>
+  <button  class="btn btn-primary" id="submitButton" type = "submit" value = "Post">solve</button>
 </form>
-<label style="margin-left: 40px">{{result}}</label>
+<label id="result" style="margin-left: 40px">{{result}}</label>
 {% block javascript %}
-  <script>
-    $("#id_username").change(function () {
-      console.log( $(this).val() );
-    });
-  </script>
-</div>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script>
+$('#solve').on('submit', function(event){
+    event.preventDefault();
+    $.ajax({
+  type: "POST",
+  url: "{% url 'solve' equation.pk %}",
+  data: $("#solve").serialize()
+  }).done(function( o ) {
+     $('#result').text(o.result);
+  });
+});
+</script>
 {% endblock %}
+</div>
+
 {% endblock %}
 </html>
