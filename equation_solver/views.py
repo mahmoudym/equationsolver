@@ -88,6 +88,7 @@ def deleteequation(request,pk):
     return render(request, 'equation_index.html',context)
 
 def solve(request, pk):
+    print("hi")
     x = Equation_solver.objects.get(pk = pk)
     variables = x.variables.split(",")
     st = ""

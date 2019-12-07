@@ -4,6 +4,7 @@ from pyparsing import (Literal, CaselessLiteral, Word, Combine, Group, Optional,
                        ZeroOrMore, Forward, nums, alphas, oneOf)
 import math
 import operator
+import numpy as np
 
 __author__ = 'Paul McGuire'
 __version__ = '$Revision: 0.0 $'
@@ -89,6 +90,8 @@ class NumericStringParser(object):
                    "exp": math.exp,
                    "root": math.sqrt,
                    "abs": abs,
+                   "ln": np.log,
+                   "log": np.log10,
                    "trunc": lambda a: int(a),
                    "round": round,
                    "sgn": lambda a: abs(a) > epsilon and cmp(a, 0) or 0}
@@ -119,6 +122,9 @@ class NumericStringParser(object):
         return val
 
 def executeEq(equ, solv, final):
+    print(equ)
+    print(solv)
+    print(final)
     equations = equ.split(",")
     equs = {}
     results = {}
@@ -126,7 +132,9 @@ def executeEq(equ, solv, final):
         var = i.split("=")
         equs[var[0].strip()] = var[1].strip()
 
-
+    for key,value in equs.items():
+        print(key)
+        print(value)
     for key,value in equs.items():
             for key3, value3 in equs.items():
                 x = key3 + " = " + value3
@@ -137,45 +145,33 @@ def executeEq(equ, solv, final):
                     while(key in value3):
                         x = value3.find(key)
                         y = x+len(equs[key])
-                        value3 = value3[:x] + "(" + equs[key]  + ")" + value3[x+1:]
+                        value3 = value3[:x] + "(" + equs[key]  + ")" + value3[x+len(key):]
                     equs[key2] = value3
-
 
     final = final.split(",")
     solv = solv.split(",")
+    print("hhhhh")
+    print(final)
+    print(solv)
     for k in final:
         equ = equs[k.strip()]
         for i in solv:
+            print(i)
             var = i.split("=")
-            x=0
-            for j in equ:
-                if j == var[0].strip():
-                    if x+1 < len(equ):
-                        if not (equ[x+1].isalpha()):
-                            if x-1>0:
-                                if not (equ[x-1].isalpha()):
-                                    print(j)
-                                    equ = equ[:x] + "(" + var[1].strip() + ")" + equ[x+1:]
-                                    x+= len(var[1].strip()) +1
-                            else:
-                                equ = equ[:x] + "(" + var[1].strip() + ")" + equ[x+1:]
-                                x+= len(var[1].strip()) +1
-                    else:
-                        if x-1>0:
-                            if not (equ[x-1].isalpha()):
-                                print(j)
-                                equ = equ[:x] + "(" + var[1].strip() + ")" + equ[x+1:]
-                                x+= len(var[1].strip()) +1
-                        else:
-                            equ = equ[:x] + "(" + var[1].strip() + ")" + equ[x+1:]
-                            x+= len(var[1].strip()) +1
-
-                x+=1
+            print(var[0])
+            while(var[0].strip() in equ):
+               x = equ.find(var[0].strip())
+               y = x+len(var[0].strip())
+               equ = equ[:x] + var[1].strip() + equ[y:]
+               print(equ)
         results[k.strip()] = equ
 
     nsp = NumericStringParser()
     result = ""
+    print('resultaaa')
     for key,value in results.items():
+        print(key)
+        print(value)
         result += key + " = " + str(nsp.eval(value)) + "\n"
 
 

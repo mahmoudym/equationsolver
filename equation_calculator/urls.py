@@ -16,7 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
+from django.http import HttpResponseRedirect
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path ('', lambda r: HttpResponseRedirect('equation_solver/')),
     path('equation_solver/', include('equation_solver.urls')),
-]
+    ]
