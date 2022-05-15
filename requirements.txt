@@ -33,3 +33,4 @@ tzlocal==1.5.1
 Unidecode==1.0.23
 webencodings==0.5.1
 numpy==1.17.4
+psycopg2==2.8.6

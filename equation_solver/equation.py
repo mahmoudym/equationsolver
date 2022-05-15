@@ -122,9 +122,6 @@ class NumericStringParser(object):
         return val
 
 def executeEq(equ, solv, final):
-    print(equ)
-    print(solv)
-    print(final)
     equations = equ.split(",")
     equs = {}
     results = {}
@@ -133,12 +130,9 @@ def executeEq(equ, solv, final):
         equs[var[0].strip()] = var[1].strip()
 
     for key,value in equs.items():
-        print(key)
-        print(value)
     for key,value in equs.items():
             for key3, value3 in equs.items():
                 x = key3 + " = " + value3
-                print(x)
             for key2, value2 in equs.items():
                 if key in value2:
                     value3 = value2
@@ -150,28 +144,19 @@ def executeEq(equ, solv, final):
 
     final = final.split(",")
     solv = solv.split(",")
-    print("hhhhh")
-    print(final)
-    print(solv)
     for k in final:
         equ = equs[k.strip()]
         for i in solv:
-            print(i)
             var = i.split("=")
-            print(var[0])
             while(var[0].strip() in equ):
                x = equ.find(var[0].strip())
                y = x+len(var[0].strip())
                equ = equ[:x] + var[1].strip() + equ[y:]
-               print(equ)
         results[k.strip()] = equ
 
     nsp = NumericStringParser()
     result = ""
-    print('resultaaa')
     for key,value in results.items():
-        print(key)
-        print(value)
         result += key + " = " + str(nsp.eval(value)) + "\n"
 
 

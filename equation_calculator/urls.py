@@ -20,7 +20,7 @@ from django.views.generic import RedirectView
 from django.http import HttpResponseRedirect
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path ('', lambda r: HttpResponseRedirect('equation_solver/')),
-    path('equation_solver/', include('equation_solver.urls')),
-    ]
+    path("admin/", admin.site.urls),
+    path("", lambda r: HttpResponseRedirect("equation_solver/")),
+    path("equation_solver/", include("equation_solver.urls")),
+]
