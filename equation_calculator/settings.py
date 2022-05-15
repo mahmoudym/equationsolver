@@ -80,7 +80,7 @@ DATABASES = {
         "NAME": "equation_solver",
         "USER": "youssef",
         "PASSWORD": "equation_solver",
-        "HOST": "0.0.0.0",
+        "HOST": "localhost",
         "PORT": "5432",
     }
 }
