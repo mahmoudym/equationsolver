@@ -1,35 +1,45 @@
-
 from __future__ import division
-from pyparsing import (Literal, CaselessLiteral, Word, Combine, Group, Optional,
-                       ZeroOrMore, Forward, nums, alphas, oneOf)
+from pyparsing import (
+    Literal,
+    CaselessLiteral,
+    Word,
+    Combine,
+    Group,
+    Optional,
+    ZeroOrMore,
+    Forward,
+    nums,
+    alphas,
+    oneOf,
+)
 import math
 import operator
 import numpy as np
 
-__author__ = 'Paul McGuire'
-__version__ = '$Revision: 0.0 $'
-__date__ = '$Date: 2009-03-20 $'
-__source__ = '''http://pyparsing.wikispaces.com/file/view/fourFn.py
+__author__ = "Paul McGuire"
+__version__ = "$Revision: 0.0 $"
+__date__ = "$Date: 2009-03-20 $"
+__source__ = """http://pyparsing.wikispaces.com/file/view/fourFn.py
 http://pyparsing.wikispaces.com/message/view/home/15549426
-'''
-__note__ = '''
+"""
+__note__ = """
 All I've done is rewrap Paul McGuire's fourFn.py as a class, so I can use it
 more easily in other places.
-'''
+"""
 
 
 class NumericStringParser(object):
-    '''
+    """
     Most of this code comes from the fourFn.py pyparsing example
 
-    '''
+    """
 
     def pushFirst(self, strg, loc, toks):
         self.exprStack.append(toks[0])
 
     def pushUMinus(self, strg, loc, toks):
-        if toks and toks[0] == '-':
-            self.exprStack.append('unary -')
+        if toks and toks[0] == "-":
+            self.exprStack.append("unary -")
 
     def __init__(self):
         """
@@ -44,9 +54,11 @@ class NumericStringParser(object):
         """
         point = Literal(".")
         e = CaselessLiteral("E")
-        fnumber = Combine(Word("+-" + nums, nums) +
-                          Optional(point + Optional(Word(nums))) +
-                          Optional(e + Word("+-" + nums, nums)))
+        fnumber = Combine(
+            Word("+-" + nums, nums)
+            + Optional(point + Optional(Word(nums)))
+            + Optional(e + Word("+-" + nums, nums))
+        )
         ident = Word(alphas, alphas + nums + "_$")
         plus = Literal("+")
         minus = Literal("-")
@@ -59,46 +71,52 @@ class NumericStringParser(object):
         expop = Literal("^")
         pi = CaselessLiteral("PI")
         expr = Forward()
-        atom = ((Optional(oneOf("- +")) +
-                 (ident + lpar + expr + rpar | pi | e | fnumber).setParseAction(self.pushFirst))
-                | Optional(oneOf("- +")) + Group(lpar + expr + rpar)
-                ).setParseAction(self.pushUMinus)
+        atom = (
+            (
+                Optional(oneOf("- +"))
+                + (ident + lpar + expr + rpar | pi | e | fnumber).setParseAction(
+                    self.pushFirst
+                )
+            )
+            | Optional(oneOf("- +")) + Group(lpar + expr + rpar)
+        ).setParseAction(self.pushUMinus)
         # by defining exponentiation as "atom [ ^ factor ]..." instead of
         # "atom [ ^ atom ]...", we get right-to-left exponents, instead of left-to-right
         # that is, 2^3^2 = 2^(3^2), not (2^3)^2.
         factor = Forward()
-        factor << atom + \
-            ZeroOrMore((expop + factor).setParseAction(self.pushFirst))
-        term = factor + \
-            ZeroOrMore((multop + factor).setParseAction(self.pushFirst))
-        expr << term + \
-            ZeroOrMore((addop + term).setParseAction(self.pushFirst))
+        factor << atom + ZeroOrMore((expop + factor).setParseAction(self.pushFirst))
+        term = factor + ZeroOrMore((multop + factor).setParseAction(self.pushFirst))
+        expr << term + ZeroOrMore((addop + term).setParseAction(self.pushFirst))
         # addop_term = ( addop + term ).setParseAction( self.pushFirst )
         # general_term = term + ZeroOrMore( addop_term ) | OneOrMore( addop_term)
         # expr <<  general_term
         self.bnf = expr
         # map operator symbols to corresponding arithmetic operations
         epsilon = 1e-12
-        self.opn = {"+": operator.add,
-                    "-": operator.sub,
-                    "*": operator.mul,
-                    "/": operator.truediv,
-                    "^": operator.pow}
-        self.fn = {"sin": math.sin,
-                   "cos": math.cos,
-                   "tan": math.tan,
-                   "exp": math.exp,
-                   "root": math.sqrt,
-                   "abs": abs,
-                   "ln": np.log,
-                   "log": np.log10,
-                   "trunc": lambda a: int(a),
-                   "round": round,
-                   "sgn": lambda a: abs(a) > epsilon and cmp(a, 0) or 0}
+        self.opn = {
+            "+": operator.add,
+            "-": operator.sub,
+            "*": operator.mul,
+            "/": operator.truediv,
+            "^": operator.pow,
+        }
+        self.fn = {
+            "sin": math.sin,
+            "cos": math.cos,
+            "tan": math.tan,
+            "exp": math.exp,
+            "root": math.sqrt,
+            "abs": abs,
+            "ln": np.log,
+            "log": np.log10,
+            "trunc": lambda a: int(a),
+            "round": round,
+            "sgn": lambda a: abs(a) > epsilon and cmp(a, 0) or 0,
+        }
 
     def evaluateStack(self, s):
         op = s.pop()
-        if op == 'unary -':
+        if op == "unary -":
             return -self.evaluateStack(s)
         if op in "+-*/^":
             op2 = self.evaluateStack(s)
@@ -121,7 +139,11 @@ class NumericStringParser(object):
         val = self.evaluateStack(self.exprStack[:])
         return val
 
+
 def executeEq(equ, solv, final):
+    print(equ)
+    print(solv)
+    print(final)
     equations = equ.split(",")
     equs = {}
     results = {}
@@ -129,35 +151,46 @@ def executeEq(equ, solv, final):
         var = i.split("=")
         equs[var[0].strip()] = var[1].strip()
 
-    for key,value in equs.items():
-    for key,value in equs.items():
-            for key3, value3 in equs.items():
-                x = key3 + " = " + value3
-            for key2, value2 in equs.items():
-                if key in value2:
-                    value3 = value2
-                    while(key in value3):
-                        x = value3.find(key)
-                        y = x+len(equs[key])
-                        value3 = value3[:x] + "(" + equs[key]  + ")" + value3[x+len(key):]
-                    equs[key2] = value3
+    for key, value in equs.items():
+        print(key)
+        print(value)
+    for key, value in equs.items():
+        for key3, value3 in equs.items():
+            x = key3 + " = " + value3
+            print(x)
+        for key2, value2 in equs.items():
+            if key in value2:
+                value3 = value2
+                while key in value3:
+                    x = value3.find(key)
+                    y = x + len(equs[key])
+                    value3 = value3[:x] + "(" + equs[key] + ")" + value3[x + len(key) :]
+                equs[key2] = value3
 
     final = final.split(",")
     solv = solv.split(",")
+    print("hhhhh")
+    print(final)
+    print(solv)
     for k in final:
         equ = equs[k.strip()]
         for i in solv:
+            print(i)
             var = i.split("=")
-            while(var[0].strip() in equ):
-               x = equ.find(var[0].strip())
-               y = x+len(var[0].strip())
-               equ = equ[:x] + var[1].strip() + equ[y:]
+            print(var[0])
+            while var[0].strip() in equ:
+                x = equ.find(var[0].strip())
+                y = x + len(var[0].strip())
+                equ = equ[:x] + var[1].strip() + equ[y:]
+                print(equ)
         results[k.strip()] = equ
 
     nsp = NumericStringParser()
     result = ""
-    for key,value in results.items():
+    print("resultaaa")
+    for key, value in results.items():
+        print(key)
+        print(value)
         result += key + " = " + str(nsp.eval(value)) + "\n"
 
-
-    return(result)
+    return result
